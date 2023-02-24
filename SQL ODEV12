@@ -1,0 +1,21 @@
+--ODEV12
+--1)
+SELECT COUNT(length) FROM film
+WHERE length> any
+(
+  SELECT AVG(length) FROM film
+);
+--2)
+SELECT COUNT(rental_rate) FROM film
+WHERE rental_rate =
+(
+	SELECT MAX(rental_rate) FROM film
+);
+--3)
+SELECT * FROM film
+WHERE  rental_rate = (select min(rental_rate) from film)
+	and replacement_cost = (select min(replacement_cost) from film);
+--4)
+select customer_id from payment
+  group by customer_id
+  order by count(customer_id) desc;
